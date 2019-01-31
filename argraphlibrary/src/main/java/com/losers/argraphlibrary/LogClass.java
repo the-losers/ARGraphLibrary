@@ -1,15 +1,11 @@
 package com.losers.argraphlibrary;
 
 import android.util.Log;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LogClass {
 
-  public static final int ASSERT = 7;
-  public static final int DEBUG = 3;
-  public static final int ERROR = 6;
-  public static final int INFO = 4;
-  public static final int VERBOSE = 2;
-  public static final int WARN = 5;
+
   private static final LogClass ourInstance = new LogClass();
   private final String TAG = "AR Graph Library";
 
@@ -20,32 +16,37 @@ public class LogClass {
     return ourInstance;
   }
 
-  public void debugLog(boolean isLogEnable, String message) {
-    if (isLogEnable) {
+  public void debugLog(AtomicBoolean isLogEnable, String message) {
+    if (isLogEnable.get()) {
       Log.d(TAG, message);
     }
   }
 
-  public void verboseLog(boolean isLogEnable, String message) {
-    if (isLogEnable) {
+  public void verboseLog(AtomicBoolean isLogEnable, String message) {
+    if (isLogEnable.get()) {
       Log.v(TAG, message);
     }
   }
 
-  public void errorLog(boolean isLogEnable, String message) {
-    if (isLogEnable) {
-      Log.e(TAG, message);
+  public void errorLog(AtomicBoolean isLogEnable, String message,Throwable throwable) {
+    if (isLogEnable.get()) {
+      if(throwable!=null){
+        Log.e(TAG, message,throwable);
+      }else {
+        Log.e(TAG, message);
+      }
+
     }
   }
 
-  public void infoLog(boolean isLogEnable, String message) {
-    if (isLogEnable) {
+  public void infoLog(AtomicBoolean isLogEnable, String message) {
+    if (isLogEnable.get()) {
       Log.i(TAG, message);
     }
   }
 
-  public void warnLog(boolean isLogEnable, String message) {
-    if (isLogEnable) {
+  public void warnLog(AtomicBoolean isLogEnable, String message) {
+    if (isLogEnable.get()) {
       Log.i(TAG, message);
     }
   }
