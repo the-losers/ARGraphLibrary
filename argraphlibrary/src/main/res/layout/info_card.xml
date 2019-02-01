@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/info_tv"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_weight="1"
+  android:padding="4dp"
+  android:gravity="center"
+  android:orientation="vertical"
+  android:text="2"
+  android:textAlignment="center"
+  android:textColor="@android:color/black"/>

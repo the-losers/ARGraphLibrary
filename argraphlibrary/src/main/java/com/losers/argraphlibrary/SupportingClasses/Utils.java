@@ -1,4 +1,4 @@
-package com.losers.argraphlibrary;
+package com.losers.argraphlibrary.SupportingClasses;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,7 +12,6 @@ import android.os.Build.VERSION_CODES;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -27,13 +26,18 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
+import java.util.Date;
 
-/** Static utility methods to simplify creating multiple demo activities. */
+/**
+ * Static utility methods to simplify creating multiple demo activities.
+ */
 public class Utils {
+
   private static final String TAG = Utils.class.getSimpleName();
   private static final double MIN_OPENGL_VERSION = 3.0;
 
-  private Utils() {}
+  private Utils() {
+  }
 
   /**
    * Creates and shows a Toast containing an error message. If there was an exception passed in it
@@ -72,8 +76,8 @@ public class Utils {
    *
    * @param activity - the activity currently active.
    * @param installRequested - the indicator for ARCore that when checking the state of ARCore, if
-   *     an installation was already requested. This is true if this method previously returned
-   *     null. and the camera permission has been granted.
+   * an installation was already requested. This is true if this method previously returned null.
+   * and the camera permission has been granted.
    */
   public static Session createArSession(Activity activity, boolean installRequested)
       throws UnavailableException {
@@ -95,25 +99,55 @@ public class Utils {
     return session;
   }
 
-  /** Check to see we have the necessary permissions for this app, and ask for them if we don't. */
+  /**
+   * Check to see we have the necessary permissions for this app, and ask for them if we don't.
+   */
   public static void requestCameraPermission(Activity activity, int requestCode) {
     ActivityCompat.requestPermissions(
-        activity, new String[] {Manifest.permission.CAMERA}, requestCode);
+        activity, new String[]{Manifest.permission.CAMERA}, requestCode);
   }
 
-  /** Check to see we have the necessary permissions for this app. */
+  /**
+   * Check to see we have the necessary permissions for this app.
+   */
   public static boolean hasCameraPermission(Activity activity) {
     return ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
         == PackageManager.PERMISSION_GRANTED;
   }
-  /** Check to see if we need to show the rationale for this permission. */
+
+  /**
+   * Check to see if we need to show the rationale for this permission.
+   */
   public static boolean shouldShowRequestPermissionRationale(Activity activity) {
     return ActivityCompat.shouldShowRequestPermissionRationale(
         activity, Manifest.permission.CAMERA);
   }
 
-  /** Launch Application Setting to grant permission. */
-  public static void launchPermissionSettings(Activity activity) {
+  public static boolean shouldShowStorageRequestPermissionRationale(Activity activity) {
+    return ActivityCompat.shouldShowRequestPermissionRationale(
+        activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+  }
+
+  public static boolean hasWritePermission(Activity activity) {
+    return ActivityCompat.checkSelfPermission(
+        activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        == PackageManager.PERMISSION_GRANTED;
+  }
+
+  /**
+   * Launch Application Setting to grant permissions.
+   */
+  public static void launchStoragePermissionSettings(Activity activity) {
+    Intent intent = new Intent();
+    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+    intent.setData(Uri.fromParts("package", activity.getPackageName(), null));
+    activity.startActivity(intent);
+  }
+
+  /**
+   * Launch Application Setting to grant permission.
+   */
+  public static void launchCameraPermissionSettings(Activity activity) {
     Intent intent = new Intent();
     intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
     intent.setData(Uri.fromParts("package", activity.getPackageName(), null));
@@ -167,6 +201,11 @@ public class Utils {
       return false;
     }
     return true;
+  }
+
+  public static String getFileName() {
+    Date mDate = new Date();
+    return "ar_library"+mDate.getTime();
   }
 }
 

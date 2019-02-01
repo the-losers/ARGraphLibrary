@@ -1,4 +1,4 @@
-package com.losers.argraphlibrary;
+package com.losers.argraphlibrary.SupportingClasses;
 
 import android.util.Log;
 import java.util.concurrent.atomic.AtomicBoolean;

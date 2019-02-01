@@ -1,4 +1,4 @@
-package com.losers.argraphlibrary;
+package com.losers.argraphlibrary.SupportingClasses;
 
 import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.rendering.ModelRenderable;
@@ -15,18 +15,11 @@ public class ARGraphHelperClass {
   private GraphConfig mGraphConfig;
   private Double mMaximumSpeed;
   private Float mXPositionShift = 0.0f;
-  private Float mCubeHeight;
+
   private Material mNormalMaterial, mMaxSpeedMaterial;
-  private ModelRenderable mPlatformRenderable,mArrowRenderable;
+  private ModelRenderable mPlatformRenderable, mBlackPlatformRenderable;
 
 
-  public Float getCubeHeight() {
-    return mCubeHeight;
-  }
-
-  public void setCubeHeight(Float cubeHeight) {
-    mCubeHeight = cubeHeight;
-  }
 
   public Material getNormalMaterial() {
     return mNormalMaterial;
@@ -53,11 +46,11 @@ public class ARGraphHelperClass {
   }
 
   public ModelRenderable getArrowRenderable() {
-    return mArrowRenderable;
+    return mBlackPlatformRenderable;
   }
 
   public void setArrowRenderable(ModelRenderable arrowRenderable) {
-    mArrowRenderable = arrowRenderable;
+    mBlackPlatformRenderable = arrowRenderable;
   }
 
   public Double getMaximumSpeed() {
@@ -84,8 +77,8 @@ public class ARGraphHelperClass {
     return isLogEnabled;
   }
 
-  public void setIsLogEnabled(AtomicBoolean isLogEnabled) {
-    this.isLogEnabled = isLogEnabled;
+  public void setIsLogEnabled(boolean isLogEnabled) {
+    this.isLogEnabled.set(isLogEnabled);
   }
 
   public AtomicBoolean getHasFinishedLoading() {

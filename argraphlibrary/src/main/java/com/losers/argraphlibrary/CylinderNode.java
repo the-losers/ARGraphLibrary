@@ -3,6 +3,7 @@ package com.losers.argraphlibrary;
 
 import android.content.Context;
 import android.view.MotionEvent;
+import android.widget.TextView;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
@@ -11,6 +12,9 @@ import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ShapeFactory;
+import com.google.ar.sceneform.rendering.ViewRenderable;
+import com.losers.argraphlibrary.SupportingClasses.Constants;
+import com.losers.argraphlibrary.SupportingClasses.GraphConfig;
 
 public class CylinderNode extends Node implements Node.OnTapListener {
 
@@ -26,21 +30,20 @@ public class CylinderNode extends Node implements Node.OnTapListener {
   private Node nodeVisual;
   private final Context context;
   private Material mMaterial;
-  //  private ArFragment arFragment;
-  private boolean isMaxSpeed = false;
+  //  private ArFragment arFragment
   private Float mBarWidth;
 //  private ModelRenderable mArrowRenderable;
 
   public CylinderNode(Context context, String planetName, Material mMaterial,
       Double mBarHeight, Float mXPreviousPosition, GraphConfig mGraphConfig,
-      boolean isMaxSpeed, Float mBarWidth) {
+       Float mBarWidth) {
     this.context = context;
     this.planetName = planetName;
     this.mMaterial = mMaterial;
     this.mBarHeight = mBarHeight;
     this.mXPreviousPosition = mXPreviousPosition;
     this.mGraphConfig = mGraphConfig;
-    this.isMaxSpeed = isMaxSpeed;
+
     this.mBarWidth = mBarWidth;
 //    this.mArrowRenderable = mArrowRenderable;
     setOnTapListener(this);
@@ -55,30 +58,28 @@ public class CylinderNode extends Node implements Node.OnTapListener {
       throw new IllegalStateException("Scene is null!");
     }
 
-    if (isMaxSpeed) {
-//      if (infoCard == null) {
-//        infoCard = new Node();
-//        infoCard.setParent(this);
-//        infoCard.setEnabled(true);
-//        infoCard.setLocalScale(new Vector3(0.1f, 0.1f, 0.1f));
+    if (infoCard == null) {
+      infoCard = new Node();
+      infoCard.setParent(this);
+      infoCard.setEnabled(true);
+      infoCard.setLocalScale(new Vector3(0.1f, 0.1f, 0.1f));
 //        infoCard.setRenderable(mArrowRenderable);
-//        infoCard.setLocalPosition(new Vector3(mXPreviousPosition, (mBarHeight), 0.0f));
-//
-////        ViewRenderable.builder()
-////            .setView(context, R.layout.planet_card_view)
-////            .build()
-////            .thenAccept(
-////                (renderable) -> {
-////                  infoCard.setRenderable(renderable);
-////                  TextView textView = (TextView) renderable.getView();
-////                  textView.setText(planetName);
-////                })
-////            .exceptionally(
-////                (throwable) -> {
-////                  throw new AssertionError("Could not load plane card view.", throwable);
-////                });
-//      }
+      infoCard.setLocalPosition(
+          new Vector3(mXPreviousPosition, (mBarHeight.floatValue()), 0.0f));
 
+      ViewRenderable.builder()
+          .setView(context, R.layout.info_card)
+          .build()
+          .thenAccept(
+              (renderable) -> {
+                infoCard.setRenderable(renderable);
+                TextView textView = (TextView) renderable.getView();
+                textView.setText(planetName);
+              })
+          .exceptionally(
+              (throwable) -> {
+                throw new AssertionError("Could not load plane card view.", throwable);
+              });
     }
 
     if (nodeVisual == null) {
@@ -96,7 +97,8 @@ public class CylinderNode extends Node implements Node.OnTapListener {
 //    Log.d("Distance 1", mGraphSettings.getCubeWidth() + " ");
     return ShapeFactory
         .makeCube(
-            new Vector3(mBarWidth.floatValue(), mBarHeight.floatValue(), mGraphConfig.getCubeLength()),
+            new Vector3(mBarWidth.floatValue(), mBarHeight.floatValue(),
+                Constants.cubeLength),
             new Vector3(0.0f, mYAboveGround, 0.0f), mMaterial);
 
   }
