@@ -145,7 +145,6 @@ public class VideoRecorder {
     mediaRecorder.setVideoFrameRate(frameRate);
     mediaRecorder.setVideoSize(videoSize.getWidth(), videoSize.getHeight());
     mediaRecorder.setVideoEncoder(videoCodec);
-
     mediaRecorder.prepare();
 
     try {

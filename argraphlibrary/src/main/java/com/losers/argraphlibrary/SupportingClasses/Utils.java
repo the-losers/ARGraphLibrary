@@ -14,6 +14,10 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -203,9 +207,24 @@ public class Utils {
     return true;
   }
 
+
   public static String getFileName() {
     Date mDate = new Date();
     return "ar_library"+mDate.getTime();
+  }
+
+  public static void blinkAnimation(ImageButton imageButton,boolean toStartAnimation){
+    Animation mAnimation = new AlphaAnimation(1, 0);
+    mAnimation.setDuration(200);
+    mAnimation.setInterpolator(new LinearInterpolator());
+    mAnimation.setRepeatCount(Animation.INFINITE);
+    mAnimation.setRepeatMode(Animation.REVERSE);
+    if(toStartAnimation){
+      imageButton.startAnimation(mAnimation);
+    }else {
+      imageButton.clearAnimation();
+    }
+
   }
 }
 

@@ -14,7 +14,7 @@ import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.rendering.ShapeFactory;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.losers.argraphlibrary.SupportingClasses.Constants;
-import com.losers.argraphlibrary.SupportingClasses.GraphConfig;
+import com.losers.argraphlibrary.Modal.GraphConfig;
 
 public class CylinderNode extends Node implements Node.OnTapListener {
 

@@ -1,6 +1,5 @@
-package com.losers.argraphlibrary.SupportingClasses;
+package com.losers.argraphlibrary.Modal;
 
-import android.media.CamcorderProfile;
 import androidx.annotation.NonNull;
 import com.losers.argraphlibrary.SupportingClasses.VideoRecorder.VIDEO_QUALITY;
 import java.util.ArrayList;

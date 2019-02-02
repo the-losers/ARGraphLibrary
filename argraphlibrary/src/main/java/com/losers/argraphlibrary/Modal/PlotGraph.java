@@ -1,9 +1,10 @@
-package com.losers.argraphlibrary.SupportingClasses;
+package com.losers.argraphlibrary.Modal;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import com.google.gson.Gson;
+import com.losers.argraphlibrary.SupportingClasses.Constants;
 import com.losers.argraphlibrary.UI.ARGraphActivity;
 
 public class PlotGraph {

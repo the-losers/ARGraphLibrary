@@ -2,6 +2,7 @@ package com.losers.argraphlibrary.SupportingClasses;
 
 import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.losers.argraphlibrary.Modal.GraphConfig;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;

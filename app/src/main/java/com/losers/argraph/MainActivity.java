@@ -2,8 +2,8 @@ package com.losers.argraph;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import com.losers.argraphlibrary.SupportingClasses.GraphConfig;
-import com.losers.argraphlibrary.SupportingClasses.PlotGraph;
+import com.losers.argraphlibrary.Modal.GraphConfig;
+import com.losers.argraphlibrary.Modal.PlotGraph;
 import com.losers.argraphlibrary.SupportingClasses.VideoRecorder.VIDEO_QUALITY;
 import java.util.ArrayList;
 import java.util.List;

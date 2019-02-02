@@ -9,19 +9,46 @@
     android:id="@+id/ux_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:name="com.google.ar.sceneform.ux.ArFragment"/>
 
 
+  <ImageButton
+    android:id="@+id/blinking_btn"
+    android:layout_width="16dp"
+    android:layout_height="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_alignParentEnd="true"
+    android:background="@drawable/ic_black_circle"
+    android:contentDescription="@string/blinking_button"
+    android:visibility="gone"/>
+
+
+
   <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:layout_alignParentBottom="true"
+
+    android:backgroundTint="@android:color/white"
+    android:layout_centerHorizontal="true"
     android:id="@+id/record"
     android:layout_width="64dp"
     android:layout_height="64dp"
-    android:layout_marginBottom="24dp"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/ic_play_circle_filled_black_24dp"
     android:clickable="true"
-    android:background="@android:color/black"
+    android:contentDescription="@string/video_recording_button"
+    android:elevation="4dp"
+    android:translationZ="4dp"
     android:focusable="true"
-    app:elevation="4dp"/>
+    app:elevation="4dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
 
 </RelativeLayout>

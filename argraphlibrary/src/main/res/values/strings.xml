@@ -1,3 +1,5 @@
 <resources>
   <string name="app_name">ARGraphLibrary</string>
+  <string name="video_recording_button">video recording button</string>
+  <string name="blinking_button">blinking button</string>
 </resources>
