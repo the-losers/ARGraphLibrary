@@ -4,6 +4,7 @@ import static com.losers.argraphlibrary.SupportingClasses.Constants.divideFactor
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.sceneform.AnchorNode;
@@ -48,6 +49,7 @@ public class ARGraphPresenter implements ARGraphInterface {
           mARGraphHelperClass.setGraphConfig(
               mGson.fromJson(bundle.getString(Constants.INTENT_CONFIG), GraphConfig.class));
           mARGraphHelperClass.setMaximumSpeed(mARGraphHelperClass.getGraphConfig().getGraphList());
+          mARGraphHelperClass.setCubeHeightFactor(getCubeHeightFactor(mARGraphHelperClass));
           verifyData(mARGraphHelperClass);
           return mARGraphHelperClass;
         })
@@ -76,14 +78,17 @@ public class ARGraphPresenter implements ARGraphInterface {
         }));
   }
 
+  private Double getCubeHeightFactor(ARGraphHelperClass mARGraphHelperClass) {
+    return Constants.cubeHeightFactor / mARGraphHelperClass.getMaximumSpeed();
+  }
 
   private void verifyData(ARGraphHelperClass mARGraphHelperClass) {
     if (mARGraphHelperClass.getGraphConfig().getGraphList().isEmpty()) {
       throw new NullPointerException("Graph List is Empty :(");
     }
 
-    if (Constants.cubeHeight < 0
-        || Constants.cubeHeight > 1) {
+    if (Constants.cubeHeightFactor < 0
+        || Constants.cubeHeightFactor > 4) {
       throw new RuntimeException("Bar height must be in between 0.0 to 1.0");
     }
 
@@ -97,6 +102,7 @@ public class ARGraphPresenter implements ARGraphInterface {
     } else {
       mARGraphHelperClass.setIsLogEnabled(false);
     }
+
 
   }
 
@@ -129,10 +135,16 @@ public class ARGraphPresenter implements ARGraphInterface {
 
           graphNode.setLocalPosition(new Vector3(mXShiftPosition, 0.03f, 0f));
 
-          Node mLoadPlatformNode = loadPlatform(mARGraphHelperClass);
-          mLoadPlatformNode.addChild(graphNode);
+          if (mARGraphHelperClass.getGraphConfig().isEnableClassicPlatform()) {
+            Node mLoadPlatformNode = loadPlatform(mARGraphHelperClass);
+            mLoadPlatformNode.addChild(graphNode);
 
-          mParentNode.addChild(mLoadPlatformNode);
+            mParentNode.addChild(mLoadPlatformNode);
+          } else {
+
+            mParentNode.addChild(graphNode);
+          }
+
           return true;
         })
         .subscribeWith(new DisposableSingleObserver<Boolean>() {
@@ -164,11 +176,11 @@ public class ARGraphPresenter implements ARGraphInterface {
     for (Double value : mARGraphHelperClass.getGraphConfig().getGraphList()) {
 
       if (isMaxRun(value, mARGraphHelperClass)) {
-        createNode(context, "Maximum speed is : " + value, parentNode, getBarHeight(value),
+        createNode(context, "" + value, parentNode, getBarHeight(value, mARGraphHelperClass),
             mARGraphHelperClass.getMaxSpeedMaterial(), xShiftPosition, true, barWidth,
             mARGraphHelperClass);
       } else {
-        createNode(context, parentNode, getBarHeight(value),
+        createNode(context, parentNode, getBarHeight(value, mARGraphHelperClass),
             mARGraphHelperClass.getNormalMaterial(),
             xShiftPosition, barWidth, mARGraphHelperClass);
       }
@@ -176,6 +188,8 @@ public class ARGraphPresenter implements ARGraphInterface {
       xShiftPosition = xShiftPosition + (barWidth / 2) + barWidth;
       mARGraphHelperClass.setXPositionShift(xShiftPosition);
     }
+
+    Log.i("fsljflalsahsf", xShiftPosition + "  ");
     return parentNode;
   }
 
@@ -213,12 +227,16 @@ public class ARGraphPresenter implements ARGraphInterface {
     return planet;
   }
 
-  private Double getBarHeight(Double value) {
-    return value * Constants.cubeHeight;
+  private Double getBarHeight(Double value, ARGraphHelperClass mARGraphHelperClass) {
+    return value * mARGraphHelperClass.getCubeHeightFactor();
   }
 
   private Float getBarWidth(ARGraphHelperClass mARGraphHelperClass) {
 
+    if (mARGraphHelperClass.getGraphConfig().getGraphList().size() <= 10) {
+      return (1.0f / (mARGraphHelperClass
+          .getGraphConfig().getGraphList().size()));
+    }
     return (Constants.graphTotalLength / (mARGraphHelperClass
         .getGraphConfig().getGraphList().size()));
   }
@@ -237,11 +255,7 @@ public class ARGraphPresenter implements ARGraphInterface {
 
   private Node loadPlatform(ARGraphHelperClass mARGraphHelperClass) {
     Node platformNode = new Node();
-
-    if (mARGraphHelperClass.getGraphConfig().isEnableClassicPlatform()) {
-      platformNode.setRenderable(mARGraphHelperClass.getPlatformRenderable());
-    }
-
+    platformNode.setRenderable(mARGraphHelperClass.getPlatformRenderable());
     return platformNode;
   }
 

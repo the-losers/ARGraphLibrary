@@ -17,10 +17,18 @@ public class ARGraphHelperClass {
   private Double mMaximumSpeed;
   private Float mXPositionShift = 0.0f;
 
+  private Double mCubeHeightFactor;
   private Material mNormalMaterial, mMaxSpeedMaterial;
   private ModelRenderable mPlatformRenderable, mBlackPlatformRenderable;
 
 
+  public Double getCubeHeightFactor() {
+    return mCubeHeightFactor;
+  }
+
+  public void setCubeHeightFactor(Double cubeHeightFactor) {
+    mCubeHeightFactor = cubeHeightFactor;
+  }
 
   public Material getNormalMaterial() {
     return mNormalMaterial;

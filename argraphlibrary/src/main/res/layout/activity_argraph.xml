@@ -28,17 +28,14 @@
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:layout_alignParentBottom="true"
-
-    android:backgroundTint="@android:color/white"
     android:layout_centerHorizontal="true"
     android:id="@+id/record"
     android:layout_width="64dp"
     android:layout_height="64dp"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="16dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-    android:background="@drawable/ic_play_circle_filled_black_24dp"
     android:clickable="true"
     android:contentDescription="@string/video_recording_button"
     android:elevation="4dp"

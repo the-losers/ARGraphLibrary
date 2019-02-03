@@ -14,11 +14,12 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.circularreveal.CircularRevealFrameLayout;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.ar.core.HitResult;
 import com.google.ar.core.Plane;
 import com.google.ar.core.Trackable;
+
 import com.google.ar.sceneform.rendering.Color;
 import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.rendering.MaterialFactory;
@@ -67,9 +68,12 @@ public class ARGraphActivity extends AppCompatActivity implements ResponseBaseVi
     getIntentData(mBundle);
     blinkingBtn = findViewById(R.id.blinking_btn);
     recordButton = findViewById(R.id.record);
+    recordButton
+        .setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_filled_black_24dp));
     recordButton.setOnClickListener(view -> toggleRecording());
     recordButton.setEnabled(true);
 //    recordButton.setImageResource(R.drawable.round_videocam);
+
 
     mARFragment.setOnTapArPlaneListener(
         (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
@@ -119,7 +123,7 @@ public class ARGraphActivity extends AppCompatActivity implements ResponseBaseVi
   private void stopRecording() {
     blinkingBtn.setVisibility(View.VISIBLE);
     shutterSound(false);
-    recordButton.setBackground(getResources().getDrawable(R.drawable.ic_stop_black_24dp));
+    recordButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_stop_black_24dp));
     Utils.blinkAnimation(blinkingBtn, true);
   }
 
@@ -128,7 +132,7 @@ public class ARGraphActivity extends AppCompatActivity implements ResponseBaseVi
     blinkingBtn.setVisibility(View.GONE);
     shutterSound(true);
     recordButton
-        .setBackground(getResources().getDrawable(R.drawable.ic_play_circle_filled_black_24dp));
+        .setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_filled_black_24dp));
     String videoPath = mVideoRecorder.getVideoPath().getAbsolutePath();
 
     SnackbarHelper.getInstance()

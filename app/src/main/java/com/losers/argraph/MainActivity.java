@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     GraphConfig mGraphConfig = GraphConfig.newBuilder()
-        .setGraphList(getSpeedList())
+        .setGraphList(getOneSpeedList())
         .setEnableClassicPlatform(true)
         .setEnableLogging(true)
         .setEnableVideo(true)
@@ -26,6 +26,21 @@ public class MainActivity extends AppCompatActivity {
 
   }
 
+  private List<Double> getOneSpeedList() {
+    List<Double> mFloatsList = new ArrayList<>();
+
+    mFloatsList.add(50d);
+    mFloatsList.add(10d);
+    mFloatsList.add(80d);
+//    mFloatsList.add(50d);
+//    mFloatsList.add(10d);
+//    mFloatsList.add(80d);
+//    mFloatsList.add(50d);
+//    mFloatsList.add(10d);
+//    mFloatsList.add(80d);
+
+    return mFloatsList;
+  }
 
   private List<Double> getSpeedList() {
     List<Double> mFloatsList = new ArrayList<>();
@@ -33,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     mFloatsList.add(50d);
 
-    mFloatsList.add(55d);
+    mFloatsList.add(100d);
     mFloatsList.add(83d);
     mFloatsList.add(1d);
     mFloatsList.add(100d);

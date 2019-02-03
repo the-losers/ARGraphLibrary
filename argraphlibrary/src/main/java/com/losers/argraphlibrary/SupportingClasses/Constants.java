@@ -12,7 +12,8 @@ public class Constants {
 
   public static Float seriesGap = 0.01f;
 
-  public static Float cubeHeight = 0.1f;
+  public static Float platformFactor = 1.0f;
+  public static Float cubeHeightFactor = 4.0f;
   public static int divideFactor = 20;
   public static final String INTENT_CONFIG = "INTENT_CONFIG";
 }

@@ -58,43 +58,46 @@ public class CylinderNode extends Node implements Node.OnTapListener {
       throw new IllegalStateException("Scene is null!");
     }
 
-    if (infoCard == null) {
-      infoCard = new Node();
-      infoCard.setParent(this);
-      infoCard.setEnabled(true);
-      infoCard.setLocalScale(new Vector3(0.1f, 0.1f, 0.1f));
-//        infoCard.setRenderable(mArrowRenderable);
-      infoCard.setLocalPosition(
-          new Vector3(mXPreviousPosition, (mBarHeight.floatValue()), 0.0f));
-
-      ViewRenderable.builder()
-          .setView(context, R.layout.info_card)
-          .build()
-          .thenAccept(
-              (renderable) -> {
-                infoCard.setRenderable(renderable);
-                TextView textView = (TextView) renderable.getView();
-                textView.setText(planetName);
-              })
-          .exceptionally(
-              (throwable) -> {
-                throw new AssertionError("Could not load plane card view.", throwable);
-              });
-    }
+//    if (infoCard == null) {
+//      infoCard = new Node();
+//      infoCard.setParent(this);
+//      infoCard.setEnabled(true);
+//      infoCard.setLocalScale(new Vector3(0.1f, 0.1f, 0.1f));
+////      infoCard.setLocalScale();
+////        infoCard.setRenderable(mArrowRenderable);
+//      infoCard.setLocalPosition(
+//          new Vector3(mXPreviousPosition, (mBarHeight.floatValue()+1.0f), 0));
+//
+//      ViewRenderable.builder()
+//          .setView(context, R.layout.info_card)
+//          .build()
+//          .thenAccept(
+//              (ViewRenderable renderable) -> {
+//                infoCard.setRenderable(renderable);
+//                TextView textView = (TextView) renderable.getView();
+//                textView.setText("23");
+//              })
+//          .exceptionally(
+//              (throwable) -> {
+//                throw new AssertionError("Could not load plane card view.", throwable);
+//              });
+//    }
 
     if (nodeVisual == null) {
       nodeVisual = new Node();
       nodeVisual.setParent(this);
-      nodeVisual.setRenderable(getPlanetRenderable(mMaterial, mBarHeight.floatValue()));
+      nodeVisual.setRenderable(getCyclinderRenderable(mMaterial, mBarHeight.floatValue()));
       nodeVisual.setLocalPosition(new Vector3(mXPreviousPosition, 0.0f, 0.0f));
 //      nodeVisual.setLocalScale(new Vector3(planetScale, planetScale, planetScale));
     }
   }
 
-  private ModelRenderable getPlanetRenderable(Material mMaterial, Float height) {
+  private ModelRenderable getCyclinderRenderable(Material mMaterial, Float height) {
 
     Float mYAboveGround = (height / 2);
 //    Log.d("Distance 1", mGraphSettings.getCubeWidth() + " ");
+
+
     return ShapeFactory
         .makeCube(
             new Vector3(mBarWidth.floatValue(), mBarHeight.floatValue(),
