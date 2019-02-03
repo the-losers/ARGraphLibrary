@@ -1,6 +1,8 @@
 
 [![](https://jitpack.io/v/the-losers/ARGraphLibrary.svg)](https://jitpack.io/#the-losers/ARGraphLibrary)
 
+A simple library that allows you to plot a graph in Real world using ARCore.
+
 ### Gradle
 
 Add following dependency to your root project `build.gradle` file:
