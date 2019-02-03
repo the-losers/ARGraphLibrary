@@ -35,5 +35,4 @@ dependencies {
 - Contact me on **LinkedIn**: [**deepakypro**](http://linkedin.com/in/deepakypro)
 
 ## License
-## License
 ARGraphLibrary is available under the BSD license. See the [LICENSE](https://github.com/the-losers/ARGraphLibrary/blob/master/LICENSE.md) file.
