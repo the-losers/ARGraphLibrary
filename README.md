@@ -1,5 +1,5 @@
 
-[![](https://jitpack.io/v/the-losers/AR-Graph-Library.svg)](https://jitpack.io/#the-losers/AR-Graph-Library)
+[![](https://jitpack.io/v/the-losers/ARGraphLibrary.svg)](https://jitpack.io/#the-losers/ARGraphLibrary)
 
 ### Gradle
 
@@ -21,7 +21,7 @@ Add following dependency to your app module `build.gradle` file:
 ```groovy
 dependencies {
     ...
-   implementation 'com.github.the-losers:AR-Graph-Library:x.y.z'
+   implementation 'com.github.the-losers:ARGraphLibrary:x.y.z'
     ...
 }
 ```
