@@ -208,6 +208,26 @@ public class Utils {
   }
 
 
+  public static boolean checkIsDeviceSuppotARcore(final Activity activity) {
+    if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
+      Log.e(TAG, "Sceneform requires Android N or later");
+      Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG).show();
+      return false;
+    }
+
+    String openGlVersionString =
+        ((ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE))
+            .getDeviceConfigurationInfo()
+            .getGlEsVersion();
+    if (Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
+      Log.e(TAG, "Sceneform requires OpenGL ES 3.0 later");
+      Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
+          .show();
+      return false;
+    }
+    return true;
+  }
+
   public static String getFileName() {
     Date mDate = new Date();
     return "ar_library"+mDate.getTime();

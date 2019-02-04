@@ -2,8 +2,10 @@
 package com.losers.argraphlibrary;
 
 import android.content.Context;
+import android.os.Build.VERSION_CODES;
 import android.view.MotionEvent;
 import android.widget.TextView;
+import androidx.annotation.RequiresApi;
 import com.google.ar.sceneform.FrameTime;
 import com.google.ar.sceneform.HitTestResult;
 import com.google.ar.sceneform.Node;
@@ -15,7 +17,7 @@ import com.google.ar.sceneform.rendering.ShapeFactory;
 import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.losers.argraphlibrary.SupportingClasses.Constants;
 import com.losers.argraphlibrary.Modal.GraphConfig;
-
+@RequiresApi(api = VERSION_CODES.N)
 public class CylinderNode extends Node implements Node.OnTapListener {
 
   private final String planetName;
@@ -91,6 +93,7 @@ public class CylinderNode extends Node implements Node.OnTapListener {
 //      nodeVisual.setLocalScale(new Vector3(planetScale, planetScale, planetScale));
     }
   }
+
 
   private ModelRenderable getCyclinderRenderable(Material mMaterial, Float height) {
 

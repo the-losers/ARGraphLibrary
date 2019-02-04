@@ -1,30 +1,50 @@
 package com.losers.argraph;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.losers.argraphlibrary.Modal.GraphConfig;
 import com.losers.argraphlibrary.Modal.PlotGraph;
+import com.losers.argraphlibrary.SupportingClasses.Utils;
 import com.losers.argraphlibrary.SupportingClasses.VideoRecorder.VIDEO_QUALITY;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+  private Button mPlotAGraphBtn;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    GraphConfig mGraphConfig = GraphConfig.newBuilder()
-        .setGraphList(getOneSpeedList())
-        .setEnableClassicPlatform(true)
-        .setEnableLogging(true)
-        .setEnableVideo(true)
-        .setVideoQuality(VIDEO_QUALITY.QUALITY_720P)
-        .build();
-    PlotGraph.get(getApplicationContext()).loadGraph(mGraphConfig);
+    mPlotAGraphBtn = findViewById(R.id.add_a_graph);
+
+    //check if device support arcore or not
+    if (!Utils.checkIsDeviceSuppotARcore(this)) {
+      mPlotAGraphBtn.setVisibility(View.GONE);
+    }
+
+    mPlotAGraphBtn.setOnClickListener(
+        view -> PlotGraph.get(getApplicationContext()).loadGraph(getGraphConfig()));
+
 
   }
+
+
+  //configure the graph
+  private GraphConfig getGraphConfig() {
+    return GraphConfig.newBuilder()
+        .setGraphList(getOneSpeedList()) // list you want to add in real world
+        .setEnableClassicPlatform(true) // if you want to add platform or not
+        .setEnableLogging(true) // enable logging
+        .setEnableVideo(true) //enable video recording of ar graph
+        .setVideoQuality(VIDEO_QUALITY.QUALITY_720P) // video quality
+        .build();
+  }
+
 
   private List<Double> getOneSpeedList() {
     List<Double> mFloatsList = new ArrayList<>();

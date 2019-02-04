@@ -41,6 +41,7 @@ public class PlotGraph {
   }
 
 
+
   public PlotGraph loadGraph(GraphConfig graphConfig) {
     Intent intent = getIntentFromUrl(graphConfig);
     context.startActivity(intent);
