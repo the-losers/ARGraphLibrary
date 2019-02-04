@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaActionSound;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MotionEvent;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,7 +36,7 @@ import com.losers.argraphlibrary.SupportingClasses.Utils;
 import com.losers.argraphlibrary.SupportingClasses.VideoRecorder;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-
+@RequiresApi(api = VERSION_CODES.N)
 public class ARGraphActivity extends AppCompatActivity implements ResponseBaseView {
 
   private FloatingActionButton recordButton;
@@ -44,6 +46,7 @@ public class ARGraphActivity extends AppCompatActivity implements ResponseBaseVi
   private VideoRecorder mVideoRecorder;
   private final MediaActionSound sound = new MediaActionSound();
   private ARGraphPresenter mARGraphPresenter;
+
 
 
   @Override
@@ -164,10 +167,13 @@ public class ARGraphActivity extends AppCompatActivity implements ResponseBaseVi
         .setSource(this, R.raw.above).build();
     CompletableFuture<Material> redMaterial = MaterialFactory
         .makeOpaqueWithColor(this, new Color(android.graphics.Color.RED));
+    CompletableFuture<Material> whiteMaterial = MaterialFactory
+        .makeOpaqueWithColor(this, new Color(android.graphics.Color.WHITE));
     CompletableFuture<Material> blueMaterial = MaterialFactory
         .makeOpaqueWithColor(this, new Color(android.graphics.Color.BLUE));
     CompletableFuture.allOf(
         redMaterial,
+        whiteMaterial,
         platformStage,
         blueMaterial)
         .handle(
@@ -182,8 +188,9 @@ public class ARGraphActivity extends AppCompatActivity implements ResponseBaseVi
               }
 
               try {
-                mARGraphHelperClass.setMaxSpeedMaterial(blueMaterial.get());
+                mARGraphHelperClass.setMaxMaterial(blueMaterial.get());
                 mARGraphHelperClass.setNormalMaterial(redMaterial.get());
+                mARGraphHelperClass.setWhiteMaterial(whiteMaterial.get());
                 // Everything finished loading successfully.
                 mARGraphHelperClass.setHasFinishedLoading(true);
 

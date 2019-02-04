@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
   //configure the graph
   private GraphConfig getGraphConfig() {
     return GraphConfig.newBuilder()
-        .setGraphList(getOneSpeedList()) // list you want to add in real world
+        .setGraphList(getSpeedList()) // list you want to add in real world
         .setEnableClassicPlatform(true) // if you want to add platform or not
         .setEnableLogging(true) // enable logging
         .setEnableVideo(true) //enable video recording of ar graph

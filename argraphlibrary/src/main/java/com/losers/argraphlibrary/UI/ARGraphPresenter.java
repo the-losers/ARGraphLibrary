@@ -3,19 +3,19 @@ package com.losers.argraphlibrary.UI;
 import static com.losers.argraphlibrary.SupportingClasses.Constants.divideFactor;
 
 import android.content.Context;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
-import android.util.Log;
+import androidx.annotation.RequiresApi;
 import com.google.ar.core.Anchor;
 import com.google.ar.core.HitResult;
 import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.Node;
 import com.google.ar.sceneform.math.Vector3;
-import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
 import com.google.gson.Gson;
 import com.losers.argraphlibrary.Base.ResponseBaseView;
-import com.losers.argraphlibrary.CylinderNode;
+import com.losers.argraphlibrary.BarNode;
 import com.losers.argraphlibrary.Modal.GraphConfig;
 import com.losers.argraphlibrary.SupportingClasses.ARGraphHelperClass;
 import com.losers.argraphlibrary.SupportingClasses.Constants;
@@ -26,7 +26,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableMaybeObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Iterator;
 
+@RequiresApi(api = VERSION_CODES.N)
 public class ARGraphPresenter implements ARGraphInterface {
 
   private ResponseBaseView mResponseBaseView;
@@ -79,7 +81,7 @@ public class ARGraphPresenter implements ARGraphInterface {
   }
 
   private Double getCubeHeightFactor(ARGraphHelperClass mARGraphHelperClass) {
-    return Constants.cubeHeightFactor / mARGraphHelperClass.getMaximumSpeed();
+    return Constants.barHeightFactor / mARGraphHelperClass.getMaximumSpeed();
   }
 
   private void verifyData(ARGraphHelperClass mARGraphHelperClass) {
@@ -87,8 +89,8 @@ public class ARGraphPresenter implements ARGraphInterface {
       throw new NullPointerException("Graph List is Empty :(");
     }
 
-    if (Constants.cubeHeightFactor < 0
-        || Constants.cubeHeightFactor > 4) {
+    if (Constants.barHeightFactor < 0
+        || Constants.barHeightFactor > 4) {
       throw new RuntimeException("Bar height must be in between 0.0 to 1.0");
     }
 
@@ -170,62 +172,47 @@ public class ARGraphPresenter implements ARGraphInterface {
   private Node createGraph(Context context, ARGraphHelperClass mARGraphHelperClass) {
 
     Node parentNode = new Node();
-    Float barWidth = getBarWidth(mARGraphHelperClass);
-    Float xShiftPosition = 0f;
+    float barWidth = getBarWidth(mARGraphHelperClass);
+    float xShiftPosition = 0f;
+    boolean isLastItem = false;
+    Iterator<Double> iterator = mARGraphHelperClass.getGraphConfig().getGraphList().iterator();
 
-    for (Double value : mARGraphHelperClass.getGraphConfig().getGraphList()) {
+    while (iterator.hasNext()) {
+      Double value = iterator.next();
 
-      if (isMaxRun(value, mARGraphHelperClass)) {
-        createNode(context, "" + value, parentNode, getBarHeight(value, mARGraphHelperClass),
-            mARGraphHelperClass.getMaxSpeedMaterial(), xShiftPosition, true, barWidth,
-            mARGraphHelperClass);
-      } else {
-        createNode(context, parentNode, getBarHeight(value, mARGraphHelperClass),
-            mARGraphHelperClass.getNormalMaterial(),
-            xShiftPosition, barWidth, mARGraphHelperClass);
+      if (!iterator.hasNext()) {
+        isLastItem = true;
       }
 
+      Node mNode = createNode(context, "" + value,
+          getBarHeight(value, mARGraphHelperClass),
+          xShiftPosition, isMaxValue(value, mARGraphHelperClass), barWidth, mARGraphHelperClass,
+          isLastItem);
+
+      mNode.setParent(parentNode);
       xShiftPosition = xShiftPosition + (barWidth / 2) + barWidth;
       mARGraphHelperClass.setXPositionShift(xShiftPosition);
+
     }
 
-    Log.i("fsljflalsahsf", xShiftPosition + "  ");
     return parentNode;
   }
 
   private Node createNode(
       Context context,
       String maxValue,
-      Node parent,
       Double mHeight,
-      Material material,
       Float mPreviousXPosition,
-      Boolean isMaxRun,
+      Boolean isMaxValue,
       Float barWidth,
-      ARGraphHelperClass mARGraphHelperClass
+      ARGraphHelperClass mARGraphHelperClass,
+      boolean isLastItem
   ) {
 
-    CylinderNode planet = new CylinderNode(context, maxValue, material, mHeight, mPreviousXPosition,
-        mARGraphHelperClass.getGraphConfig(), barWidth);
-    planet.setParent(parent);
-    return planet;
+    return new BarNode(context, maxValue, mHeight, mPreviousXPosition,
+        mARGraphHelperClass, barWidth, isMaxValue,isLastItem);
   }
 
-  private Node createNode(
-      Context context,
-      Node parent,
-      Double mHeight,
-      Material material,
-      Float mPreviousXPosition,
-      Float barWidth,
-      ARGraphHelperClass mARGraphHelperClass
-  ) {
-
-    CylinderNode planet = new CylinderNode(context, null, material, mHeight, mPreviousXPosition,
-        mARGraphHelperClass.getGraphConfig(), barWidth);
-    planet.setParent(parent);
-    return planet;
-  }
 
   private Double getBarHeight(Double value, ARGraphHelperClass mARGraphHelperClass) {
     return value * mARGraphHelperClass.getCubeHeightFactor();
@@ -241,7 +228,7 @@ public class ARGraphPresenter implements ARGraphInterface {
         .getGraphConfig().getGraphList().size()));
   }
 
-  private Boolean isMaxRun(Double mSpeed, ARGraphHelperClass mARGraphHelperClass) {
+  private Boolean isMaxValue(Double mSpeed, ARGraphHelperClass mARGraphHelperClass) {
 
     if (mARGraphHelperClass.getIsMaximumSpeedAlreadyPlotted().get()) {
       return false;

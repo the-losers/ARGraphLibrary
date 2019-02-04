@@ -18,7 +18,7 @@ public class ARGraphHelperClass {
   private Float mXPositionShift = 0.0f;
 
   private Double mCubeHeightFactor;
-  private Material mNormalMaterial, mMaxSpeedMaterial;
+  private Material mNormalMaterial, mMaxMaterial,mWhiteMaterial;
   private ModelRenderable mPlatformRenderable, mBlackPlatformRenderable;
 
 
@@ -38,12 +38,20 @@ public class ARGraphHelperClass {
     mNormalMaterial = normalMaterial;
   }
 
-  public Material getMaxSpeedMaterial() {
-    return mMaxSpeedMaterial;
+  public Material getMaxMaterial() {
+    return mMaxMaterial;
   }
 
-  public void setMaxSpeedMaterial(Material maxSpeedMaterial) {
-    mMaxSpeedMaterial = maxSpeedMaterial;
+  public void setMaxMaterial(Material maxMaterial) {
+    mMaxMaterial = maxMaterial;
+  }
+
+  public Material getWhiteMaterial() {
+    return mWhiteMaterial;
+  }
+
+  public void setWhiteMaterial(Material whiteMaterial) {
+    mWhiteMaterial = whiteMaterial;
   }
 
   public ModelRenderable getPlatformRenderable() {
