@@ -7,7 +7,7 @@ A simple library that allows you to add a graph in Real world using ARCore.
 
 ![20190205_092505](https://user-images.githubusercontent.com/47303464/52292799-80422900-299b-11e9-9c1a-ccfb6b4c6618.gif)
 
-### Gradle
+## Gradle
 
 Add following dependency to your root project `build.gradle` file:
 
@@ -32,7 +32,7 @@ dependencies {
 }
 ```
 
-### Configure
+## Configure
 
 * **Manifest File**
 
@@ -89,7 +89,7 @@ dependencies {
 
     * ARGraph is using androidx library, So You will have to migrate your project to AndroidX. Read more about it here - [Migrating to AndroidX](https://developer.android.com/jetpack/androidx/migrate)
     
-### Usage   
+## Usage   
 
 * Create the GraphConfig builder,
     
@@ -123,18 +123,21 @@ dependencies {
     
 
 
-### App using ARGraph
+## App using ARGraph
 [My Run Tracker - The Run Tracking App](https://play.google.com/store/apps/details?id=activity.com.myactivity2&hl=en_US)
 
-### Author
+## Author
 [**Deepak Kumar**](https://github.com/deepakypro)
 
 - Follow me on **Twitter**: [**@deepakypro**](https://twitter.com/deepakypro)
 - Contact me on **LinkedIn**: [**deepakypro**](http://linkedin.com/in/deepakypro)
 
-### License
+## License
 ARGraphLibrary is available under the BSD license. See the [LICENSE](https://github.com/the-losers/ARGraphLibrary/blob/master/LICENSE.md) file.
 
+<p align="center">
+  <b>The End : Happy Coding :D</b>
+</p>
 
 
 <p align="center">
