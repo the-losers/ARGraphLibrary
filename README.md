@@ -1,6 +1,8 @@
 
 [![](https://jitpack.io/v/the-losers/ARGraphLibrary.svg)](https://jitpack.io/#the-losers/ARGraphLibrary)
 
+Yeah , Check us on Medium also :- https://medium.com/@deepakypro/how-to-plot-a-graph-in-real-world-using-arcore-android-4f5f1007fb86 
+
 A simple library that allows you to add a graph in Real world using ARCore.
 
 ## Demo
