@@ -1,5 +1,6 @@
 
 [![](https://jitpack.io/v/the-losers/ARGraphLibrary.svg)](https://jitpack.io/#the-losers/ARGraphLibrary)
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ARGraph%20library-green.svg?style=flat )]( https://android-arsenal.com/details/1/7657 )
 
 Yeah , Check us on Medium also :- https://medium.com/@deepakypro/how-to-plot-a-graph-in-real-world-using-arcore-android-4f5f1007fb86 
 
